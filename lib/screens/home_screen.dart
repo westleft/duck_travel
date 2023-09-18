@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:duck_travel/models/city_models.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:duck_travel/api/api_service.dart';
@@ -13,21 +14,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  var cityList = [];
+  var _selectCity;
+  var isLoading = false;
+
   @override
   void initState() {
-    // print(dotenv.env['CLIENT_ID']);
-    getData();
-    // TODO: implement initState
+    getCity();
     super.initState();
   }
 
-  void getData() async {
+  void getCity() async {
     try {
-      final res = await apiRequest.getActivityData();
-      print(res);
+      setState(() => isLoading = true);
+      final res = await ApiRequest.getCity();
+      cityList = res;
+      _selectCity = cityList[0];
+      setState(() => isLoading = false);
     } catch (e) {
       print(e);
     }
+  }
+
+  void testCityApi() async {
+    final res = await ApiRequest.getScenicByCity('MiaoliCounty', 10, 1);
+    print(res);
   }
 
   @override
@@ -81,16 +92,29 @@ class _HomeScreen extends State<HomeScreen> {
                               ),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 4),
-                              child: DropdownButton(
-                                isExpanded: true, // 设置为true以扩展宽度
-                                dropdownColor: Colors.white, // 下拉菜单的背景颜色
-                                items: [
-                                  DropdownMenuItem(child: Text('新竹市')),
-                                ],
-                                onChanged: (value) {},
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
+                              child: !isLoading
+                                  ? DropdownButton(
+                                      isExpanded: true, // 设置为true以扩展宽度
+                                      dropdownColor: Colors.white, // 下拉菜单的背景颜色
+                                      value: _selectCity.city,
+                                      items: cityList
+                                          .map(
+                                            (city) => DropdownMenuItem(
+                                              value: city.city,
+                                              child: Text(city.cityName),
+                                            ),
+                                          )
+                                          .toList(),
+                                      onChanged: (value) {
+                                        if (value == null) return;
+                                        setState(() {
+                                          _selectCity = cityList.firstWhere((city) => city.city == value);
+                                        });
+                                      },
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    )
+                                  : const Text('Loading...'),
                             ),
                             const SizedBox(height: 20),
                             Container(
@@ -98,19 +122,20 @@ class _HomeScreen extends State<HomeScreen> {
                               padding: EdgeInsets.all(4),
                               decoration: BoxDecoration(
                                 color: Color(0xFFF79C31),
-                                borderRadius:
-                                    BorderRadius.circular(40), // 20 是圆角的半径
+                                borderRadius: BorderRadius.circular(40),
                               ),
                               child: TextButton.icon(
                                 onPressed: () {
-                                  getData();
-                                  // Navigator.pushNamed(context, '/result');
+                                  testCityApi();
+                                  // Navigator.pushNamed(context, '/result', arguments: {
+                                  //   'city': _selectCity
+                                  // });
                                 },
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.search,
                                   size: 20,
                                 ),
-                                label: Text(
+                                label: const Text(
                                   '搜尋',
                                   style: TextStyle(
                                     color: Color(0xff333333),

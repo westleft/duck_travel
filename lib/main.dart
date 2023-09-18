@@ -3,9 +3,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:duck_travel/route/index.dart';
 import 'package:duck_travel/screens/home_screen.dart';
+import 'package:duck_travel/utils/token.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  await AccessToken.init();
 
   runApp(
     MaterialApp(
