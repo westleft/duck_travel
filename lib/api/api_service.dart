@@ -20,15 +20,11 @@ Dio networkDio() {
   );
 
   dio.interceptors.add(InterceptorsWrapper(
-    // onRequest: (options, handler) {
-    //   print();
-    // },
+    onRequest: (options, handler) {
+      handler.next(options);
+    },
     onResponse: (Response response, handler) {
-      // print(response);
-      // return response.data;
       return handler.next(response);
-      // print(getAuthorizationHeader());
-      // print(response.data);
     },
     // onError: (e, handler) {},
   ));

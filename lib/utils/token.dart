@@ -11,9 +11,16 @@ class AccessToken {
       return;
     }
 
+    final isExpire = await AccessToken.isExpire();
+    if (!isExpire) {
+      return;
+    }
+
     final response = await ApiRequest.getAccessToken();
     AccessToken.set(response.access_token);
-    return;
+    AccessToken.storeExpireTime(response.expires_in);
+    // 
+    // return;
   }
 
   static set(token) async {
@@ -26,8 +33,18 @@ class AccessToken {
 
   }
 
-  static bool isExpire() {
-    return false;
+  static storeExpireTime(int expireTime) async {
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('expireTime', (expireTime + currentTime).toString());
+  }
+
+  static Future<bool> isExpire() async {
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
+    final prefs = await SharedPreferences.getInstance();
+    final expireTime = await prefs.getString('expireTime');
+    
+    return currentTime > int.parse(expireTime as String) ? true : false;
   }
 
 }
