@@ -43,7 +43,7 @@ class _ResultScreen extends State<ResultScreen> {
         isLoading = true;
       });
 
-      final city = routeData['city'].city;
+      final city = _selectCity.city;
       final res = await ApiRequest.getScenicByCity(city, 10, 1);
       _resultData = res;
       print(res);
@@ -109,9 +109,9 @@ class _ResultScreen extends State<ResultScreen> {
                           borderRadius: BorderRadius.circular(40), // 20 是圆角的半径
                         ),
                         child: TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.search),
-                          label: Text(
+                          onPressed: getScenicSpotData,
+                          icon: const Icon(Icons.search),
+                          label: const Text(
                             '搜尋',
                             style: TextStyle(
                               color: Color(0xFF333333),
@@ -129,7 +129,7 @@ class _ResultScreen extends State<ResultScreen> {
                         print(item.address);
                         return TourItem(
                             scenicSpotName: item.scenicSpotName,
-                            picture: item.picture['PictureUrl1'],
+                            picture: item.picture['PictureUrl1'] ?? 'https://i.imgur.com/T30xe2O.jpg',
                             address: item.address ?? '尚無提供地址',
                             openTime: item.openTime ?? '尚無提供時間',
                             ticketInfo: item.ticketInfo ?? '尚無票價資訊');
