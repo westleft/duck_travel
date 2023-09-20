@@ -36,11 +36,6 @@ class _HomeScreen extends State<HomeScreen> {
     }
   }
 
-  void testCityApi() async {
-    final res = await ApiRequest.getScenicByCity('MiaoliCounty', 10, 1);
-    print(res);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,10 +121,10 @@ class _HomeScreen extends State<HomeScreen> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () {
-                                  testCityApi();
-                                  // Navigator.pushNamed(context, '/result', arguments: {
-                                  //   'city': _selectCity
-                                  // });
+                                  Navigator.pushNamed(context, '/result', arguments: {
+                                    'city': _selectCity,
+                                    'dropDownList': cityList
+                                  });
                                 },
                                 icon: const Icon(
                                   Icons.search,

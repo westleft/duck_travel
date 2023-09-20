@@ -5,29 +5,29 @@ part 'scenic_spot_models.g.dart';
 @JsonSerializable()
 class ScenicSpotModel {
   @JsonKey(name: 'ScenicSpotID')
-  String scenicSpotID;
+  String? scenicSpotID;
   @JsonKey(name: 'ScenicSpotName')
-  String scenicSpotName;
+  String? scenicSpotName;
   @JsonKey(name: 'DescriptionDetail')
-  String descriptionDetail;
+  String? descriptionDetail;
   @JsonKey(name: 'Description')
-  String description;
+  String? description;
   @JsonKey(name: 'Phone')
-  String phone;
+  String? phone;
   @JsonKey(name: 'Address')
-  String address;
+  String? address;
   @JsonKey(name: 'ZipCode')
-  String zipCode;
+  String? zipCode;
   @JsonKey(name: 'TravelInfo')
-  String travelInfo;
+  String? travelInfo;
   @JsonKey(name: 'OpenTime')
-  String openTime;
+  String? openTime;
   @JsonKey(name: 'Picture')
-  Map<String, dynamic> picture;
+  Map<String, dynamic>? picture;
   @JsonKey(name: 'Position')
-  Position position;
+  Position? position;
   @JsonKey(name: 'Class1')
-  String class1;
+  String? class1;
   @JsonKey(name: 'Class2')
   String? class2;
   @JsonKey(name: 'Class3')
@@ -35,40 +35,46 @@ class ScenicSpotModel {
   @JsonKey(name: 'WebsiteUrl')
   String? websiteUrl;
   @JsonKey(name: 'ParkingPosition')
-  Map<String, dynamic> parkingPosition;
+  Map<String, dynamic>? parkingPosition;
   @JsonKey(name: 'TicketInfo')
   String? ticketInfo;
   @JsonKey(name: 'City')
-  String city;
+  String? city;
   @JsonKey(name: 'SrcUpdateTime')
-  String srcUpdateTime;
+  String? srcUpdateTime;
   @JsonKey(name: 'UpdateTime')
-  String updateTime;
+  String? updateTime;
   @JsonKey(name: 'Remarks')
   String? remarks;
+  @JsonKey(name: 'Level')
+  String? level;
+  @JsonKey(name: 'ParkingInfo')
+  String? parkingInfo;
 
   ScenicSpotModel({
-    required this.scenicSpotID,
-    required this.scenicSpotName,
-    required this.descriptionDetail,
-    required this.description,
-    required this.phone,
-    required this.address,
-    required this.zipCode,
-    required this.travelInfo,
-    required this.openTime,
-    required this.picture,
-    required this.position,
-    required this.class1,
+    this.scenicSpotID,
+    this.scenicSpotName,
+    this.descriptionDetail,
+    this.description,
+    this.phone,
+    this.address,
+    this.zipCode,
+    this.travelInfo,
+    this.openTime,
+    this.picture,
+    this.position,
+    this.class1,
     this.class2,
     this.class3,
     this.websiteUrl,
-    required this.parkingPosition,
+    this.parkingPosition,
     this.ticketInfo,
-    required this.city,
-    required this.srcUpdateTime,
-    required this.updateTime,
+    this.city,
+    this.srcUpdateTime,
+    this.updateTime,
     this.remarks,
+    this.level,
+    this.parkingInfo
   });
 
   factory ScenicSpotModel.fromJson(Map<String, dynamic> json) =>

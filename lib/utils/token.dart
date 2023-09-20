@@ -12,15 +12,15 @@ class AccessToken {
     }
 
     final isExpire = await AccessToken.isExpire();
+
     if (!isExpire) {
       return;
     }
 
     final response = await ApiRequest.getAccessToken();
+    print(response.access_token);
     AccessToken.set(response.access_token);
     AccessToken.storeExpireTime(response.expires_in);
-    // 
-    // return;
   }
 
   static set(token) async {

@@ -8,27 +8,31 @@ part of 'scenic_spot_models.dart';
 
 ScenicSpotModel _$ScenicSpotModelFromJson(Map<String, dynamic> json) =>
     ScenicSpotModel(
-      scenicSpotID: json['ScenicSpotID'] as String,
-      scenicSpotName: json['ScenicSpotName'] as String,
-      descriptionDetail: json['DescriptionDetail'] as String,
-      description: json['Description'] as String,
-      phone: json['Phone'] as String,
-      address: json['Address'] as String,
-      zipCode: json['ZipCode'] as String,
-      travelInfo: json['TravelInfo'] as String,
-      openTime: json['OpenTime'] as String,
-      picture: json['Picture'] as Map<String, dynamic>,
-      position: Position.fromJson(json['Position'] as Map<String, dynamic>),
-      class1: json['Class1'] as String,
+      scenicSpotID: json['ScenicSpotID'] as String?,
+      scenicSpotName: json['ScenicSpotName'] as String?,
+      descriptionDetail: json['DescriptionDetail'] as String?,
+      description: json['Description'] as String?,
+      phone: json['Phone'] as String?,
+      address: json['Address'] as String?,
+      zipCode: json['ZipCode'] as String?,
+      travelInfo: json['TravelInfo'] as String?,
+      openTime: json['OpenTime'] as String?,
+      picture: json['Picture'] as Map<String, dynamic>?,
+      position: json['Position'] == null
+          ? null
+          : Position.fromJson(json['Position'] as Map<String, dynamic>),
+      class1: json['Class1'] as String?,
       class2: json['Class2'] as String?,
       class3: json['Class3'] as String?,
       websiteUrl: json['WebsiteUrl'] as String?,
-      parkingPosition: json['ParkingPosition'] as Map<String, dynamic>,
+      parkingPosition: json['ParkingPosition'] as Map<String, dynamic>?,
       ticketInfo: json['TicketInfo'] as String?,
-      city: json['City'] as String,
-      srcUpdateTime: json['SrcUpdateTime'] as String,
-      updateTime: json['UpdateTime'] as String,
+      city: json['City'] as String?,
+      srcUpdateTime: json['SrcUpdateTime'] as String?,
+      updateTime: json['UpdateTime'] as String?,
       remarks: json['Remarks'] as String?,
+      level: json['Level'] as String?,
+      parkingInfo: json['ParkingInfo'] as String?,
     );
 
 Map<String, dynamic> _$ScenicSpotModelToJson(ScenicSpotModel instance) =>
@@ -54,6 +58,8 @@ Map<String, dynamic> _$ScenicSpotModelToJson(ScenicSpotModel instance) =>
       'SrcUpdateTime': instance.srcUpdateTime,
       'UpdateTime': instance.updateTime,
       'Remarks': instance.remarks,
+      'Level': instance.level,
+      'ParkingInfo': instance.parkingInfo,
     };
 
 Position _$PositionFromJson(Map<String, dynamic> json) => Position(
