@@ -23,7 +23,7 @@ class ScenicSpotModel {
   @JsonKey(name: 'OpenTime')
   String? openTime;
   @JsonKey(name: 'Picture')
-  Map<String, dynamic>? picture;
+  Picture? picture;
   @JsonKey(name: 'Position')
   Position? position;
   @JsonKey(name: 'Class1')
@@ -100,4 +100,21 @@ class Position {
   factory Position.fromJson(Map<String, dynamic> json) =>
       _$PositionFromJson(json);
   Map<String, dynamic> toJson() => _$PositionToJson(this);
+}
+
+@JsonSerializable()
+class Picture {
+  @JsonKey(name: 'PictureUrl1')
+  String pictureUrl1;
+  @JsonKey(name: 'PictureDescription1')
+  String pictureDescription1;
+
+  Picture({
+    required this.pictureUrl1,
+    required this.pictureDescription1,
+  });
+
+  factory Picture.fromJson(Map<String, dynamic> json) =>
+      _$PictureFromJson(json);
+  Map<String, dynamic> toJson() => _$PictureToJson(this);
 }

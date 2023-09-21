@@ -17,7 +17,9 @@ ScenicSpotModel _$ScenicSpotModelFromJson(Map<String, dynamic> json) =>
       zipCode: json['ZipCode'] as String?,
       travelInfo: json['TravelInfo'] as String?,
       openTime: json['OpenTime'] as String?,
-      picture: json['Picture'] as Map<String, dynamic>?,
+      picture: json['Picture'] == null
+          ? null
+          : Picture.fromJson(json['Picture'] as Map<String, dynamic>),
       position: json['Position'] == null
           ? null
           : Position.fromJson(json['Position'] as Map<String, dynamic>),
@@ -72,4 +74,14 @@ Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
       'PositionLon': instance.positionLon,
       'PositionLat': instance.positionLat,
       'GeoHash': instance.geoHash,
+    };
+
+Picture _$PictureFromJson(Map<String, dynamic> json) => Picture(
+      pictureUrl1: json['PictureUrl1'] as String,
+      pictureDescription1: json['PictureDescription1'] as String,
+    );
+
+Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{
+      'PictureUrl1': instance.pictureUrl1,
+      'PictureDescription1': instance.pictureDescription1,
     };

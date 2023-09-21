@@ -54,7 +54,7 @@ class ApiRequest {
   }
 
   static Future<List<ScenicSpotModel>> getScenicByCity(city, top, skip) async {
-    final res = await _dio.get('api/basic/v2/Tourism/ScenicSpot/$city?%24top=$top&%24&skip=$skip%24format=JSON');
+    final res = await _dio.get('api/basic/v2/Tourism/ScenicSpot/$city?%24top=$top&%24skip=$skip&%24format=JSON');
     return (res.data as List<dynamic>)
       .map((json) => ScenicSpotModel.fromJson(json as Map<String, dynamic>))
       .toList();
