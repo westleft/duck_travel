@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:duck_travel/api/api_service.dart';
 
 class AccessToken {
-  static init () async {
+  static init() async {
     final prefs = await SharedPreferences.getInstance();
     final token = await prefs.getString('token');
 
@@ -29,9 +29,7 @@ class AccessToken {
     await prefs.setString('token', token);
   }
 
-  static get() {
-
-  }
+  static get() {}
 
   static storeExpireTime(int expireTime) async {
     final currentTime = DateTime.now().millisecondsSinceEpoch;
@@ -43,8 +41,8 @@ class AccessToken {
     final currentTime = DateTime.now().millisecondsSinceEpoch;
     final prefs = await SharedPreferences.getInstance();
     final expireTime = await prefs.getString('expireTime');
-    
+    if (expireTime == null) return true;
+
     return currentTime > int.parse(expireTime as String) ? true : false;
   }
-
 }
