@@ -157,12 +157,7 @@ class _ResultScreen extends State<ResultScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     final item = _resultData[index];
                     return TourItem(
-                      scenicSpotName: item.scenicSpotName!,
-                      picture: item.picture?.pictureUrl1 ??
-                          'https://i.imgur.com/T30xe2O.jpg',
-                      address: item.address ?? '尚無提供地址',
-                      openTime: item.openTime ?? '尚無提供時間',
-                      ticketInfo: item.ticketInfo ?? '尚無票價資訊',
+                      data: item,
                     );
                   },
                 ),
@@ -178,23 +173,24 @@ class _ResultScreen extends State<ResultScreen> {
 class TourItem extends StatelessWidget {
   TourItem({
     super.key,
-    required this.scenicSpotName,
-    required this.picture,
-    required this.address,
-    required this.openTime,
-    required this.ticketInfo,
+    required this.data,
   });
-
-  String scenicSpotName;
-  String picture;
-  String address;
-  String openTime;
-  String ticketInfo;
+  
+  ScenicSpotModel data;
 
   @override
   Widget build(BuildContext context) {
+    final scenicSpotName = data.scenicSpotName!;
+    final picture =
+        data.picture?.pictureUrl1 ?? 'https://i.imgur.com/T30xe2O.jpg';
+    final address = data.address ?? '尚無提供地址';
+    final openTime = data.openTime ?? '尚無提供時間';
+    final ticketInfo = data.ticketInfo ?? '尚無票價資訊';
+
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, '/detail', arguments: data);
+      },
       child: Column(
         children: [
           const SizedBox(height: 20),
@@ -207,9 +203,10 @@ class TourItem extends StatelessWidget {
                   aspectRatio: 1.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0), // 設定圖像的圓角半徑
-                    child:
-                     Image.network(
-                      picture.startsWith('https') ? picture : 'https://i.imgur.com/T30xe2O.jpg',
+                    child: Image.network(
+                      picture.startsWith('https')
+                          ? picture
+                          : 'https://i.imgur.com/T30xe2O.jpg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -256,7 +253,7 @@ class TourItem extends StatelessWidget {
                         Expanded(
                             child: Text(
                           openTime,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -266,12 +263,12 @@ class TourItem extends StatelessWidget {
                     const SizedBox(height: 4),
                     Row(
                       children: [
-                        Icon(Icons.attach_money),
+                        const Icon(Icons.attach_money),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
-                            '牛山呼庭園區需區需區需區需區需付50元',
-                            style: TextStyle(fontSize: 16),
+                            ticketInfo,
+                            style: const TextStyle(fontSize: 16),
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,

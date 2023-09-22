@@ -9,15 +9,17 @@ class Bar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Container(
-        padding: const EdgeInsets.only(left: 8),
-        child: InkWell(
-          onTap: () => Navigator.pushReplacementNamed(context, '/'),
-          child: Image.network('https://i.imgur.com/5KxFSQM.png'),
-        ),
-      ),
+      // title: Container(
+      //   padding: const EdgeInsets.only(left: 8),
+      //   child: InkWell(
+      //     onTap: () => Navigator.pushReplacementNamed(context, '/'),
+      //     child: Image.network('https://i.imgur.com/5KxFSQM.png'),
+      //   ),
+      // ),
+      title: Image.network('https://i.imgur.com/5KxFSQM.png'),
       backgroundColor: Colors.white,
-      automaticallyImplyLeading: false
+      iconTheme: const IconThemeData(color: Colors.black),
+      // automaticallyImplyLeading: false
     );
   }
 }

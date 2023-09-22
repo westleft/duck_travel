@@ -189,7 +189,7 @@ class _HomeScreen extends State<HomeScreen> {
                         CityButton(
                           imgUrl: 'https://i.imgur.com/BpmdcFU.png',
                           text: '花蓮',
-                          routePath: '/',
+                          routePath: '/detail',
                         ),
                         const SizedBox(width: 24),
                         CityButton(
@@ -255,7 +255,9 @@ class CityButton extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, routePath);
+            },
           ),
         ),
       ),
