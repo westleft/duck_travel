@@ -77,8 +77,8 @@ Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
     };
 
 Picture _$PictureFromJson(Map<String, dynamic> json) => Picture(
-      pictureUrl1: json['PictureUrl1'] as String,
-      pictureDescription1: json['PictureDescription1'] as String,
+      pictureUrl1: json['PictureUrl1'] as String?,
+      pictureDescription1: json['PictureDescription1'] as String?,
     );
 
 Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{

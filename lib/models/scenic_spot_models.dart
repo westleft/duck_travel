@@ -105,13 +105,13 @@ class Position {
 @JsonSerializable()
 class Picture {
   @JsonKey(name: 'PictureUrl1')
-  String pictureUrl1;
+  String? pictureUrl1;
   @JsonKey(name: 'PictureDescription1')
-  String pictureDescription1;
+  String? pictureDescription1;
 
   Picture({
-    required this.pictureUrl1,
-    required this.pictureDescription1,
+    this.pictureUrl1,
+    this.pictureDescription1,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) =>

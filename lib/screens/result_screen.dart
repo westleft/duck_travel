@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:duck_travel/widgets/app_bar.dart';
 import 'package:duck_travel/api/api_service.dart';
 import 'package:logging/logging.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ResultScreen extends StatefulWidget {
   @override
@@ -22,10 +23,7 @@ class _ResultScreen extends State<ResultScreen> {
   var routeData;
   var isLoading = true;
 
-  Map<String, int> apiPayload = {
-    "top": 10,
-    "skip": 0
-  };
+  Map<String, int> apiPayload = {"top": 10, "skip": 0};
 
   @override
   void didChangeDependencies() {
@@ -41,8 +39,8 @@ class _ResultScreen extends State<ResultScreen> {
   void getScenicSpotData() async {
     try {
       final city = _selectCity.city;
-      final res = await ApiRequest.getScenicByCity(city, apiPayload['top'], apiPayload['skip']);
-      print(res[0].scenicSpotName);
+      final res = await ApiRequest.getScenicByCity(
+          city, apiPayload['top'], apiPayload['skip']);
       _resultData.addAll(res);
       setState(() => isLoading = false);
 
@@ -53,17 +51,21 @@ class _ResultScreen extends State<ResultScreen> {
   }
 
   void checkIsMaxScrollExtent() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
       _scrollController.removeListener(checkIsMaxScrollExtent);
-      apiPayload['top'] =  apiPayload['top']! + pageLimit;
+      apiPayload['top'] = apiPayload['top']! + pageLimit;
       apiPayload['skip'] = apiPayload['skip']! + pageLimit;
       getScenicSpotData();
     }
   }
 
   void resetPayload() {
+    setState(() => isLoading = true);
     apiPayload['top'] = 10;
     apiPayload['skip'] = 0;
+    _resultData = [];
+    _scrollController.jumpTo(0);
   }
 
   @override
@@ -133,7 +135,7 @@ class _ResultScreen extends State<ResultScreen> {
                         onPressed: () {
                           resetPayload();
                           getScenicSpotData();
-                        }, 
+                        },
                         icon: const Icon(Icons.search),
                         label: const Text(
                           '搜尋',
@@ -205,7 +207,11 @@ class TourItem extends StatelessWidget {
                   aspectRatio: 1.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0), // 設定圖像的圓角半徑
-                    child: Image.network(picture, fit: BoxFit.cover),
+                    child:
+                     Image.network(
+                      picture.startsWith('https') ? picture : 'https://i.imgur.com/T30xe2O.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

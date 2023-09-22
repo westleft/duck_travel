@@ -8,17 +8,15 @@ class AccessToken {
 
     if (token != null) {
       AccessToken.set(token);
-      return;
     }
 
     final isExpire = await AccessToken.isExpire();
-
     if (!isExpire) {
       return;
     }
 
     final response = await ApiRequest.getAccessToken();
-    print(response.access_token);
+    // print(response.access_token);
     AccessToken.set(response.access_token);
     AccessToken.storeExpireTime(response.expires_in);
   }
